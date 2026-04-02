@@ -1,0 +1,11 @@
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\bin\Debug\TESTTAKIP.exe.config
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\bin\Debug\TESTTAKIP.exe
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\bin\Debug\TESTTAKIP.pdb
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.csproj.AssemblyReference.cache
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.frmtest.resources
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.Properties.Resources.resources
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.csproj.GenerateResource.cache
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.csproj.CoreCompileInputs.cache
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.exe
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.pdb
+C:\Users\CENGİZ\Desktop\C#ANDSQL\TESTTAKIP\TESTTAKIP\obj\Debug\TESTTAKIP.exe.config
