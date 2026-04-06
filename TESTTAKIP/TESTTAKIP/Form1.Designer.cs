@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splana = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -39,8 +41,10 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblsure = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splaltanasag = new System.Windows.Forms.SplitContainer();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.splsagust = new System.Windows.Forms.SplitContainer();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splana)).BeginInit();
             this.splana.Panel1.SuspendLayout();
             this.splana.Panel2.SuspendLayout();
@@ -58,7 +62,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcksoru)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splaltanasag)).BeginInit();
+            this.splaltanasag.Panel1.SuspendLayout();
             this.splaltanasag.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splsagust)).BeginInit();
+            this.splsagust.Panel1.SuspendLayout();
+            this.splsagust.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // splana
@@ -66,7 +75,7 @@
             this.splana.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splana.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splana.Location = new System.Drawing.Point(0, 0);
-            this.splana.Margin = new System.Windows.Forms.Padding(6);
+            this.splana.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splana.Name = "splana";
             this.splana.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -77,9 +86,9 @@
             // splana.Panel2
             // 
             this.splana.Panel2.Controls.Add(this.splaltana);
-            this.splana.Size = new System.Drawing.Size(2407, 1276);
+            this.splana.Size = new System.Drawing.Size(1303, 604);
             this.splana.SplitterDistance = 71;
-            this.splana.SplitterWidth = 8;
+            this.splana.SplitterWidth = 3;
             this.splana.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -91,12 +100,12 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(2407, 71);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1303, 71);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -104,10 +113,10 @@
             this.pictureBox1.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::TESTTAKIP.Properties.Resources.icon1;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
+            this.pictureBox1.Location = new System.Drawing.Point(2, 3);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(253, 59);
+            this.pictureBox1.Size = new System.Drawing.Size(139, 65);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -119,10 +128,10 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(271, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(145, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2130, 71);
+            this.label1.Size = new System.Drawing.Size(1156, 71);
             this.label1.TabIndex = 1;
             this.label1.Text = "TEST TAKİP";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,7 +141,7 @@
             this.splaltana.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splaltana.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splaltana.Location = new System.Drawing.Point(0, 0);
-            this.splaltana.Margin = new System.Windows.Forms.Padding(6);
+            this.splaltana.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splaltana.Name = "splaltana";
             // 
             // splaltana.Panel1
@@ -142,9 +151,9 @@
             // splaltana.Panel2
             // 
             this.splaltana.Panel2.Controls.Add(this.splaltanasag);
-            this.splaltana.Size = new System.Drawing.Size(2407, 1197);
-            this.splaltana.SplitterDistance = 2099;
-            this.splaltana.SplitterWidth = 8;
+            this.splaltana.Size = new System.Drawing.Size(1303, 530);
+            this.splaltana.SplitterDistance = 997;
+            this.splaltana.SplitterWidth = 3;
             this.splaltana.TabIndex = 0;
             // 
             // splaltanasol
@@ -152,7 +161,7 @@
             this.splaltanasol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splaltanasol.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splaltanasol.Location = new System.Drawing.Point(0, 0);
-            this.splaltanasol.Margin = new System.Windows.Forms.Padding(6);
+            this.splaltanasol.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splaltanasol.Name = "splaltanasol";
             this.splaltanasol.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -163,9 +172,9 @@
             // splaltanasol.Panel2
             // 
             this.splaltanasol.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splaltanasol.Size = new System.Drawing.Size(2099, 1197);
-            this.splaltanasol.SplitterDistance = 1088;
-            this.splaltanasol.SplitterWidth = 8;
+            this.splaltanasol.Size = new System.Drawing.Size(997, 530);
+            this.splaltanasol.SplitterDistance = 484;
+            this.splaltanasol.SplitterWidth = 3;
             this.splaltanasol.TabIndex = 0;
             // 
             // pcksoru
@@ -173,9 +182,9 @@
             this.pcksoru.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pcksoru.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pcksoru.Location = new System.Drawing.Point(0, 0);
-            this.pcksoru.Margin = new System.Windows.Forms.Padding(6);
+            this.pcksoru.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pcksoru.Name = "pcksoru";
-            this.pcksoru.Size = new System.Drawing.Size(2099, 1088);
+            this.pcksoru.Size = new System.Drawing.Size(997, 484);
             this.pcksoru.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcksoru.TabIndex = 0;
             this.pcksoru.TabStop = false;
@@ -189,12 +198,12 @@
             this.tableLayoutPanel2.Controls.Add(this.progressBar1, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(6);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 97F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(2099, 101);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(997, 43);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // lblsure
@@ -204,10 +213,10 @@
             this.lblsure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblsure.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblsure.ForeColor = System.Drawing.Color.Yellow;
-            this.lblsure.Location = new System.Drawing.Point(1110, 0);
-            this.lblsure.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblsure.Location = new System.Drawing.Point(526, 0);
+            this.lblsure.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblsure.Name = "lblsure";
-            this.lblsure.Size = new System.Drawing.Size(983, 101);
+            this.lblsure.Size = new System.Drawing.Size(469, 43);
             this.lblsure.TabIndex = 1;
             this.lblsure.Text = "label2";
             this.lblsure.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -215,35 +224,86 @@
             // progressBar1
             // 
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar1.Location = new System.Drawing.Point(6, 6);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(6);
+            this.progressBar1.Location = new System.Drawing.Point(2, 3);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1092, 89);
+            this.progressBar1.Size = new System.Drawing.Size(520, 37);
             this.progressBar1.TabIndex = 2;
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // splaltanasag
             // 
             this.splaltanasag.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splaltanasag.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splaltanasag.Location = new System.Drawing.Point(0, 0);
+            this.splaltanasag.Margin = new System.Windows.Forms.Padding(1);
             this.splaltanasag.Name = "splaltanasag";
             this.splaltanasag.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splaltanasag.Size = new System.Drawing.Size(300, 1197);
-            this.splaltanasag.SplitterDistance = 1092;
+            // 
+            // splaltanasag.Panel1
+            // 
+            this.splaltanasag.Panel1.Controls.Add(this.splsagust);
+            this.splaltanasag.Size = new System.Drawing.Size(303, 530);
+            this.splaltanasag.SplitterDistance = 486;
+            this.splaltanasag.SplitterWidth = 2;
             this.splaltanasag.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // splsagust
+            // 
+            this.splsagust.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splsagust.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splsagust.Location = new System.Drawing.Point(0, 0);
+            this.splsagust.Name = "splsagust";
+            this.splsagust.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splsagust.Panel1
+            // 
+            this.splsagust.Panel1.Controls.Add(this.dataGridView1);
+            this.splsagust.Size = new System.Drawing.Size(303, 486);
+            this.splsagust.SplitterDistance = 394;
+            this.splsagust.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightCoral;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(303, 394);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
             // 
             // frmtest
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2407, 1276);
+            this.ClientSize = new System.Drawing.Size(1303, 604);
             this.Controls.Add(this.splana);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "frmtest";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -266,8 +326,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcksoru)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.splaltanasag.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splaltanasag)).EndInit();
             this.splaltanasag.ResumeLayout(false);
+            this.splsagust.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splsagust)).EndInit();
+            this.splsagust.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -286,6 +351,8 @@
         private System.Windows.Forms.Label lblsure;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.SplitContainer splaltanasag;
+        private System.Windows.Forms.SplitContainer splsagust;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
