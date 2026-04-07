@@ -15,15 +15,92 @@ namespace TESTTAKIP
         public frmtest()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        public struct IconInfo
+        {
+            public bool fIcon;
+            public int xHotspot;
+            public int yHotspot;
+            public IntPtr hbmMask;
+            public IntPtr hbmColor;
+        }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
+
         int saniye = 150; // Toplam süre (saniye cinsinden)
         int totalTimeMs;
         int elapsedTime = 0;
         int sorusayisi=12;
+        //canvas çizim değişkenleri
+        bool cizim = false;
+        Point oncekiNokta;
+
+        Bitmap canvas;
+        Graphics g;
+
+        bool silgiModu = false;
+        Pen kalem = new Pen(Color.Black, 2);
+        Pen silgi = new Pen(Color.White, 10);
+
+        int silgiBoyutu = 10;
+        Bitmap silgiResim;
+
+        enum AracModu
+        {
+            Kalem,
+            Silgi,
+            Yazi
+        }
+
+        AracModu aktifArac = AracModu.Kalem;
+
+        Point yaziKonum;
+        string yazilanMetin = "";
+        Font yaziFont = new Font("Arial", 16);
+        Brush yaziRenk = Brushes.Black;
+
+
+        private Cursor CursorOlustur(Bitmap bmp, int hotspotX, int hotspotY)
+        {
+            IntPtr hIcon = bmp.GetHicon();
+
+            IconInfo tmp = new IconInfo();
+            GetIconInfo(hIcon, ref tmp);
+
+            tmp.xHotspot = hotspotX;
+            tmp.yHotspot = hotspotY;
+            tmp.fIcon = false; // cursor olduğunu belirt
+
+            IntPtr ptr = CreateIconIndirect(ref tmp);
+            return new Cursor(ptr);
+        }
         private void frmtest_Load(object sender, EventArgs e)
         {
-            totalTimeMs = saniye * 1000; // Toplam süreyi milisaniyeye çeviriyoruz
+            pictureBox1.Focus();
+            this.KeyPreview = true;
+            this.KeyPress += frmtest_KeyPress;
+            
+            silgiResim = new Bitmap(btnsilgi.Image);
+            silgi = new Pen(Color.White, silgiBoyutu);
+            silgi.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            silgi.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            //canvas çizim
+
+            canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            g = Graphics.FromImage(canvas);
+            g.Clear(Color.White);
+
+            pictureBox1.Image = canvas;
+
+
             // ProgressBar ayarları
+            totalTimeMs = saniye * 1000; // Toplam süreyi milisaniyeye çeviriyoruz
             progressBar1.Minimum = 0;
             progressBar1.Maximum = totalTimeMs; // toplam süreyi max yapıyoruz
             progressBar1.Value = 0;
@@ -52,6 +129,52 @@ namespace TESTTAKIP
             for (int i = 1; i < dataGridView1.Rows.Count; i++)
             {
                 dataGridView1.Rows[i].Visible = false;
+            }
+        }
+
+        private void frmtest_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (aktifArac != AracModu.Yazi)
+                return;
+
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                if (yazilanMetin.Length > 0)
+                {
+                    // Önce son karakterin genişliğini ölç
+                    string sonKarakter = yazilanMetin.Substring(yazilanMetin.Length - 1, 1);
+                    SizeF size = g.MeasureString(sonKarakter, yaziFont);
+
+                    // Son karakterin bulunduğu alanı beyaza boya
+                    g.FillRectangle(Brushes.White, yaziKonum.X - size.Width, yaziKonum.Y, size.Width, size.Height);
+
+                    // Cursoru sola kaydır
+                    yaziKonum.X -= (int)size.Width;
+
+                    // Yazıdan son karakteri çıkar
+                    yazilanMetin = yazilanMetin.Substring(0, yazilanMetin.Length - 1);
+
+                    pictureBox1.Invalidate();
+                }
+            }
+            else if (e.KeyChar == (char)Keys.Enter)
+            {
+                // Enter basınca yazıyı kalıcı çiz
+                yazilanMetin = "";
+            }
+            else
+            {
+                // Yeni harfi canvas'a çiz
+                g.DrawString(e.KeyChar.ToString(), yaziFont, yaziRenk, yaziKonum);
+
+                // Cursoru sağa kaydır
+                SizeF size = g.MeasureString(e.KeyChar.ToString(), yaziFont);
+                yaziKonum.X += (int)size.Width;
+
+                // Yazıyı geçici olarak sakla (Backspace için)
+                yazilanMetin += e.KeyChar;
+
+                pictureBox1.Invalidate();
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -139,6 +262,153 @@ namespace TESTTAKIP
             {
                 dataGridView1.Rows[nextRow].Visible = true;
             }
+        }
+
+        
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (aktifArac == AracModu.Yazi)
+            {
+                yaziKonum = e.Location;
+                yazilanMetin = "";
+                this.Focus(); // BURASI ÖNEMLİ
+                return;
+            }
+
+            cizim = true;
+            oncekiNokta = e.Location;
+        }
+       
+
+       
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!cizim) return;
+
+            if (aktifArac == AracModu.Silgi)
+            {
+                CizgiBoyuncaSil(oncekiNokta, e.Location);
+                oncekiNokta = e.Location;
+            }
+            else if (aktifArac == AracModu.Kalem)
+            {
+                g.DrawLine(kalem, oncekiNokta, e.Location);
+                oncekiNokta = e.Location;
+            }
+
+            pictureBox1.Invalidate();
+        }
+
+        private void CursorGuncelle()
+        {
+            Bitmap bmp;
+
+            if (aktifArac == AracModu.Silgi)
+                bmp = new Bitmap(btnsilgi.Image, new Size(32, 32));
+            else if (aktifArac == AracModu.Yazi)
+                bmp = new Bitmap(btnYazi.Image, new Size(32, 32));
+            else
+                bmp = new Bitmap(btnkalem.Image, new Size(32, 32));
+
+            pictureBox1.Cursor = CursorOlustur(bmp, 2, bmp.Height - 2);
+        }
+        private void CizgiBoyuncaSil(Point p1, Point p2)
+        {
+            int dx = p2.X - p1.X;
+            int dy = p2.Y - p1.Y;
+
+            int adim = Math.Max(Math.Abs(dx), Math.Abs(dy));
+            if (adim == 0)
+            {
+                GercekSil(p1.X, p1.Y);
+                return;
+            }
+
+            float xArtis = dx / (float)adim;
+            float yArtis = dy / (float)adim;
+
+            float x = p1.X;
+            float y = p1.Y;
+
+            for (int i = 0; i <= adim; i++)
+            {
+                GercekSil((int)x, (int)y);
+                x += xArtis;
+                y += yArtis;
+            }
+        }
+
+        
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (aktifArac == AracModu.Yazi && !string.IsNullOrEmpty(yazilanMetin))
+            {
+                e.Graphics.DrawString(yazilanMetin, yaziFont, Brushes.Gray, yaziKonum);
+            }
+        }
+        private void GercekSil(int mouseX, int mouseY)
+        {
+            int w = silgiResim.Width;
+            int h = silgiResim.Height;
+
+            int startX = mouseX - w / 2;
+            int startY = mouseY - h / 2;
+
+            for (int x = 0; x < w; x++)
+            {
+                for (int y = 0; y < h; y++)
+                {
+                    Color c = silgiResim.GetPixel(x, y);
+
+                    if (c.A > 50)
+                    {
+                        int hedefX = startX + x;
+                        int hedefY = startY + y;
+
+                        if (hedefX >= 0 && hedefY >= 0 &&
+                            hedefX < canvas.Width && hedefY < canvas.Height)
+                        {
+                            canvas.SetPixel(hedefX, hedefY, Color.White);
+                        }
+                    }
+                }
+            }
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            cizim = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            aktifArac = AracModu.Kalem;
+            CursorGuncelle();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            aktifArac = AracModu.Silgi;
+            CursorGuncelle();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            g.Clear(Color.White);
+            pictureBox1.Invalidate();
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+
+            CursorGuncelle();
+        }
+
+        private void btnYazi_Click(object sender, EventArgs e)
+        {
+            aktifArac = AracModu.Yazi;
+            pictureBox1.Focus();
+            CursorGuncelle();
         }
     }
     
