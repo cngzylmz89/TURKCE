@@ -119,5 +119,35 @@
   <ItemGroup>
     <None Include="Resources\icons8_broom_40px.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\devamet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\devamet1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\durdur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\baslat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bitir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_next_page_100px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_forward_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_back_to_26px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_back_to_26px1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_back_64px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +66,10 @@ namespace TESTTAKIP
         Font yaziFont = new Font("Arial", 16);
         Brush yaziRenk = Brushes.Black;
 
+        List<string> resimYollari = new List<string>();
+        int aktifIndex = 0;
 
+        string kayitKlasoru = "";
         private Cursor CursorOlustur(Bitmap bmp, int hotspotX, int hotspotY)
         {
             IntPtr hIcon = bmp.GetHicon();
@@ -409,6 +413,166 @@ namespace TESTTAKIP
             aktifArac = AracModu.Yazi;
             pictureBox1.Focus();
             CursorGuncelle();
+        }
+
+        private void btndevam_Click(object sender, EventArgs e)
+        {
+            if (btndevam.Visible == true && btndurdur.Visible == false)
+            {
+                btndevam.Visible= false;
+                btndurdur.Visible = true;
+                timer1.Start();
+            }
+            
+        }
+
+        private void btndurdur_Click(object sender, EventArgs e)
+        {
+            if(btndurdur.Visible==true&&btndevam.Visible==false)
+            {
+                btndurdur.Visible=false;
+                btndevam.Visible= true;
+                timer1.Stop();
+            }
+        }
+        private void ResmiGoster(string yol)
+        {
+            string dosyaAdi = Path.GetFileNameWithoutExtension(yol) + ".png";
+            string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
+
+            Bitmap yuklenen;
+
+            string okunacakYol = File.Exists(kayitYolu) ? kayitYolu : yol;
+
+            using (var temp = new Bitmap(okunacakYol))
+            {
+                yuklenen = new Bitmap(temp);
+            }
+
+            g.Clear(Color.White);
+            g.DrawImage(yuklenen, 0, 0, canvas.Width, canvas.Height);
+
+            pictureBox1.Invalidate();
+        }
+        private void btnbaslat_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                // 1,2,3... diye sıralı dosyaları al
+                resimYollari = Directory.GetFiles(fbd.SelectedPath, "*.jpg")
+                                        .Concat(Directory.GetFiles(fbd.SelectedPath, "*.png"))
+                                        .OrderBy(x => Path.GetFileNameWithoutExtension(x))
+                                        .ToList();
+
+                aktifIndex = 0;
+
+                if (resimYollari.Count > 0)
+                {
+                    ResmiGoster(resimYollari[aktifIndex]);
+                }
+            }
+
+            kayitKlasoru = Path.Combine(fbd.SelectedPath, "Cizimler");
+
+            if (!Directory.Exists(kayitKlasoru))
+                Directory.CreateDirectory(kayitKlasoru);
+
+            if (btnbaslat.Visible == true && btnileri.Visible == false)
+            {
+                btnbaslat.Visible= false;
+                btnileri.Visible= true;
+                timer1.Start();
+                btndevam.Visible = false;
+                btndurdur.Visible = true;
+            }
+        }
+        void sonrakiresim()
+        {
+            if (resimYollari.Count == 0)
+                return;
+
+            try
+            {
+                string dosyaAdi = Path.GetFileNameWithoutExtension(resimYollari[aktifIndex]) + ".png";
+                string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
+
+                using (Bitmap kaydedilecek = new Bitmap(canvas))
+                {
+                    kaydedilecek.Save(kayitYolu, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kaydetme hatası: " + ex.Message);
+            }
+
+            aktifIndex++;
+
+            if (aktifIndex >= resimYollari.Count)
+                aktifIndex = 0;
+
+            ResmiGoster(resimYollari[aktifIndex]);
+        }
+
+        private void btnbitir_Click(object sender, EventArgs e)
+        {
+            DialogResult result1=MessageBox.Show("Test bitirilip, program kapatılacak. Onaylıyor musunuz?", "Bilgi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(result1==DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            sonrakiresim();
+        }
+
+        private void btngeri_Click(object sender, EventArgs e)
+        {
+            if (resimYollari.Count == 0)
+                return;
+
+            try
+            {
+                string dosyaAdi = Path.GetFileNameWithoutExtension(resimYollari[aktifIndex]) + ".png";
+                string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
+
+                using (Bitmap kaydedilecek = new Bitmap(canvas))
+                {
+                    kaydedilecek.Save(kayitYolu, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Resim kaydedilemedi: " + ex.Message);
+            }
+
+            aktifIndex--;
+
+            if (aktifIndex < 0)
+                aktifIndex = resimYollari.Count - 1;
+
+            ResmiGoster(resimYollari[aktifIndex]);
+        }
+
+        private void frmtest_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (resimYollari.Count > 0)
+            {
+                string dosyaAdi = Path.GetFileNameWithoutExtension(resimYollari[aktifIndex]) + ".png";
+                string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
+
+                using (Bitmap kaydedilecek = new Bitmap(canvas))
+                {
+                    if (File.Exists(kayitYolu))
+                        
+
+                    kaydedilecek.Save(kayitYolu, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
         }
     }
     
