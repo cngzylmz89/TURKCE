@@ -70,6 +70,13 @@ namespace TESTTAKIP
         int aktifIndex = 0;
 
         string kayitKlasoru = "";
+
+        Stack<Bitmap> undoStack = new Stack<Bitmap>();
+
+        void DurumKaydet()
+        {
+            undoStack.Push(new Bitmap(canvas));
+        }
         private Cursor CursorOlustur(Bitmap bmp, int hotspotX, int hotspotY)
         {
             IntPtr hIcon = bmp.GetHicon();
@@ -86,6 +93,8 @@ namespace TESTTAKIP
         }
         private void frmtest_Load(object sender, EventArgs e)
         {
+
+
             pictureBox1.Focus();
             this.KeyPreview = true;
             this.KeyPress += frmtest_KeyPress;
@@ -163,6 +172,8 @@ namespace TESTTAKIP
             }
             else if (e.KeyChar == (char)Keys.Enter)
             {
+                DurumKaydet(); // 🔥 BURAYA EKLİYORSUN
+
                 // Enter basınca yazıyı kalıcı çiz
                 yazilanMetin = "";
             }
@@ -275,9 +286,11 @@ namespace TESTTAKIP
             {
                 yaziKonum = e.Location;
                 yazilanMetin = "";
-                this.Focus(); // BURASI ÖNEMLİ
+                this.Focus();
                 return;
             }
+
+            DurumKaydet(); // 🔥 BURASI
 
             cizim = true;
             oncekiNokta = e.Location;
@@ -341,8 +354,21 @@ namespace TESTTAKIP
                 y += yArtis;
             }
         }
+        void GeriAl()
+        {
+            if (undoStack.Count > 0)
+            {
+                if (canvas != null)
+                    canvas.Dispose();
 
-        
+                canvas = undoStack.Pop();
+                g = Graphics.FromImage(canvas);
+
+                pictureBox1.Image = canvas;
+                pictureBox1.Invalidate();
+            }
+        }
+
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
@@ -398,6 +424,8 @@ namespace TESTTAKIP
 
         private void button3_Click(object sender, EventArgs e)
         {
+            DurumKaydet(); // 🔥
+
             g.Clear(Color.White);
             pictureBox1.Invalidate();
         }
@@ -573,6 +601,31 @@ namespace TESTTAKIP
                     kaydedilecek.Save(kayitYolu, System.Drawing.Imaging.ImageFormat.Png);
                 }
             }
+        }
+
+        private void frmtest_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Z)
+            {
+                GeriAl();
+            }
+        }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            GeriAl();
+        }
+
+        private void btnYazi_Click_1(object sender, EventArgs e)
+        {
+            aktifArac = AracModu.Yazi;
+            pictureBox1.Focus();
+            CursorGuncelle();
+        }
+
+        private void btnUndo_Click_1(object sender, EventArgs e)
+        {
+            GeriAl();
         }
     }
     
