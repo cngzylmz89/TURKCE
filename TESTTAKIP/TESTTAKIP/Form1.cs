@@ -72,7 +72,7 @@ namespace TESTTAKIP
         string kayitKlasoru = "";
 
         Stack<Bitmap> undoStack = new Stack<Bitmap>();
-
+        int eskiSplitter = 0;
         void DurumKaydet()
         {
             undoStack.Push(new Bitmap(canvas));
@@ -445,23 +445,13 @@ namespace TESTTAKIP
 
         private void btndevam_Click(object sender, EventArgs e)
         {
-            if (btndevam.Visible == true && btndurdur.Visible == false)
-            {
-                btndevam.Visible= false;
-                btndurdur.Visible = true;
-                timer1.Start();
-            }
+           
             
         }
 
         private void btndurdur_Click(object sender, EventArgs e)
         {
-            if(btndurdur.Visible==true&&btndevam.Visible==false)
-            {
-                btndurdur.Visible=false;
-                btndevam.Visible= true;
-                timer1.Stop();
-            }
+           
         }
         private void ResmiGoster(string yol)
         {
@@ -481,6 +471,7 @@ namespace TESTTAKIP
             g.DrawImage(yuklenen, 0, 0, canvas.Width, canvas.Height);
 
             pictureBox1.Invalidate();
+            SoruGuncelle();
         }
         private void btnbaslat_Click(object sender, EventArgs e)
         {
@@ -544,6 +535,10 @@ namespace TESTTAKIP
             ResmiGoster(resimYollari[aktifIndex]);
         }
 
+        void SoruGuncelle()
+        {
+            lblsoru.Text = "Soru " + (aktifIndex + 1);
+        }
         private void btnbitir_Click(object sender, EventArgs e)
         {
             DialogResult result1=MessageBox.Show("Test bitirilip, program kapatılacak. Onaylıyor musunuz?", "Bilgi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -626,6 +621,32 @@ namespace TESTTAKIP
         private void btnUndo_Click_1(object sender, EventArgs e)
         {
             GeriAl();
+        }
+
+        private void btndevam_Click_1(object sender, EventArgs e)
+        {
+            if (btndevam.Visible == true && btndurdur.Visible == false)
+            {
+                btndevam.Visible = false;
+                btndurdur.Visible = true;
+                timer1.Start();
+            }
+
+        }
+
+        private void btndurdur_Click_1(object sender, EventArgs e)
+        {
+            if (btndurdur.Visible == true && btndevam.Visible == false)
+            {
+                btndurdur.Visible = false;
+                btndevam.Visible = true;
+                timer1.Stop();
+            }
+        }
+
+        private void chkgizle_CheckedChanged(object sender, EventArgs e)
+        {
+            splaltana.Panel2Collapsed = chkgizle.Checked;
         }
     }
     
