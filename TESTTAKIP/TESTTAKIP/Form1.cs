@@ -34,7 +34,7 @@ namespace TESTTAKIP
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
 
-        int saniye = 150; // Toplam süre (saniye cinsinden)
+        int saniye = 90; // Toplam süre (saniye cinsinden)
         int totalTimeMs;
         int elapsedTime = 0;
         int sorusayisi=12;
@@ -120,7 +120,7 @@ namespace TESTTAKIP
             progressBar1.Style = ProgressBarStyle.Continuous;
 
             timer1.Interval = 50; // akıcı animasyon
-            timer1.Start();
+            //timer1.Start();
             dataGridView1.RowTemplate.Height = 50;
 
 
