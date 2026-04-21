@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace TESTTAKIP
 {
     public partial class frmtest : Form
@@ -27,7 +29,7 @@ namespace TESTTAKIP
             public IntPtr hbmMask;
             public IntPtr hbmColor;
         }
-
+        System.Media.SoundPlayer player; // 🔥 BUNU CLASS LEVEL'e ekle (üstte)
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
 
@@ -38,6 +40,8 @@ namespace TESTTAKIP
         int totalTimeMs;
         int elapsedTime = 0;
         int sorusayisi=12;
+
+        int kalanSureMs;
         //canvas çizim değişkenleri
         bool cizim = false;
         Point oncekiNokta;
@@ -51,7 +55,7 @@ namespace TESTTAKIP
 
         int silgiBoyutu = 10;
         Bitmap silgiResim;
-
+        
         enum AracModu
         {
             Kalem,
@@ -66,13 +70,25 @@ namespace TESTTAKIP
         Font yaziFont = new Font("Arial", 16);
         Brush yaziRenk = Brushes.Black;
 
-        List<string> resimYollari = new List<string>();
+        List<Soru> sorular = new List<Soru>();
         int aktifIndex = 0;
 
         string kayitKlasoru = "";
+        string gecikmeliSesYolu = "";
+        int geriSayim = 0;
 
         Stack<Bitmap> undoStack = new Stack<Bitmap>();
         int eskiSplitter = 0;
+
+        Timer sesGecikmeTimer = new Timer();
+        int gecikmeSaniye = 3;
+        class Soru
+        {
+            public string ResimYolu { get; set; }
+            public string SesYolu { get; set; }
+
+            
+        }
         void DurumKaydet()
         {
             undoStack.Push(new Bitmap(canvas));
@@ -93,7 +109,14 @@ namespace TESTTAKIP
         }
         private void frmtest_Load(object sender, EventArgs e)
         {
+            sesGecikmeTimer.Interval = 1000; // 1 saniye
+            sesGecikmeTimer.Tick += SesGecikmeTimer_Tick;
 
+            sesGecikmeTimer.Interval = 1000;
+            sesGecikmeTimer.Tick += SesGecikmeTimer_Tick;
+
+            timer2.Interval = 1000;
+            timer2.Tick += timer2_Tick;
 
             pictureBox1.Focus();
             this.KeyPreview = true;
@@ -192,40 +215,52 @@ namespace TESTTAKIP
                 pictureBox1.Invalidate();
             }
         }
+
+        int kalanSure = 0;
+
+        private void SesGecikmeTimer_Tick(object sender, EventArgs e)
+        {
+            kalanSure--;
+
+            lblsoru.Text = $"🔊 Ses {kalanSure} saniye sonra çalacak";
+
+            if (kalanSure <= 0)
+            {
+                sesGecikmeTimer.Stop();
+
+                var soru = sorular[aktifIndex];
+
+                if (!string.IsNullOrEmpty(soru.SesYolu))
+                {
+                    if (player != null)
+                        player.Stop();
+
+                    player = new System.Media.SoundPlayer(soru.SesYolu);
+                    player.Play();
+                }
+
+                lblsoru.Text = "🔊 Ses çalıyor";
+            }
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             elapsedTime += timer1.Interval;
 
-            if (elapsedTime <= totalTimeMs)
+            kalanSureMs = (saniye * 1000) - elapsedTime;
+
+            if (kalanSureMs > 0)
             {
-                progressBar1.Value = Math.Min(elapsedTime, totalTimeMs);
+                progressBar1.Value = elapsedTime;
 
-                // Renk geçişi
-                double oran = (double)elapsedTime / totalTimeMs;
-
-                if (oran <= 0.5) // ilk yarı → yeşil
-                {
-                    progressBar1.ForeColor = Color.Green;
-                }
-                else if (oran <= 0.8) // ikinci kısım → sarı
-                {
-                    progressBar1.ForeColor = Color.Yellow;
-                }
-                else // son kısım → kırmızı
-                {
-                    progressBar1.ForeColor = Color.Red;
-                }
-
-                // Kalan süre label
-                int kalanMs = totalTimeMs - elapsedTime;
-                lblsure.Text = TimeSpan.FromMilliseconds(kalanMs).ToString(@"mm\:ss");
+                lblsure.Text = TimeSpan.FromMilliseconds(kalanSureMs)
+                    .ToString(@"mm\:ss");
             }
             else
             {
-                timer1.Stop();
-                progressBar1.Value = totalTimeMs;
-                lblsure.Text = "00:00";
-                MessageBox.Show("Süre doldu!");
+                // ⛔ süre bitti → sonraki soru
+                sonrakiresim(); // veya SoruyuGoster(sorular[++aktifIndex]);
+
+                return;
             }
         }
 
@@ -479,17 +514,37 @@ namespace TESTTAKIP
 
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                // 1,2,3... diye sıralı dosyaları al
-                resimYollari = Directory.GetFiles(fbd.SelectedPath, "*.jpg")
-                                        .Concat(Directory.GetFiles(fbd.SelectedPath, "*.png"))
-                                        .OrderBy(x => Path.GetFileNameWithoutExtension(x))
-                                        .ToList();
+                var tumDosyalar = Directory.GetFiles(fbd.SelectedPath);
+
+                var gruplar = tumDosyalar
+                    .GroupBy(x => Path.GetFileNameWithoutExtension(x))
+                    .OrderBy(g => g.Key);
+
+                sorular.Clear();
+
+                foreach (var grup in gruplar)
+                {
+                    Soru s = new Soru();
+
+                    foreach (var dosya in grup)
+                    {
+                        string ext = Path.GetExtension(dosya).ToLower();
+
+                        if (ext == ".jpg" || ext == ".png")
+                            s.ResimYolu = dosya;
+
+                        else if (ext == ".wav")
+                            s.SesYolu = dosya;
+                    }
+
+                    sorular.Add(s);
+                }
 
                 aktifIndex = 0;
 
-                if (resimYollari.Count > 0)
+                if (sorular.Count > 0)
                 {
-                    ResmiGoster(resimYollari[aktifIndex]);
+                    SoruyuGoster(sorular[aktifIndex]);
                 }
             }
 
@@ -509,32 +564,57 @@ namespace TESTTAKIP
         }
         void sonrakiresim()
         {
-            if (resimYollari.Count == 0)
+            if (sorular.Count == 0)
                 return;
 
-            try
-            {
-                string dosyaAdi = Path.GetFileNameWithoutExtension(resimYollari[aktifIndex]) + ".png";
-                string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
-
-                using (Bitmap kaydedilecek = new Bitmap(canvas))
-                {
-                    kaydedilecek.Save(kayitYolu, System.Drawing.Imaging.ImageFormat.Png);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Kaydetme hatası: " + ex.Message);
-            }
+            Kaydet();
 
             aktifIndex++;
 
-            if (aktifIndex >= resimYollari.Count)
+            if (aktifIndex >= sorular.Count)
                 aktifIndex = 0;
 
-            ResmiGoster(resimYollari[aktifIndex]);
-        }
+            elapsedTime = 0;           // 🔥 RESET
+            progressBar1.Value = 0;    // 🔥 RESET
 
+            SoruyuGoster(sorular[aktifIndex]);
+        }
+        private void SoruyuGoster(Soru soru)
+        {
+            // süreyi resetle
+            elapsedTime = 0;
+            kalanSureMs = saniye * 1000;
+
+            progressBar1.Value = 0;
+            lblsure.Text = TimeSpan.FromMilliseconds(kalanSureMs).ToString(@"mm\:ss");
+            // 🖼 RESİM
+            if (!string.IsNullOrEmpty(soru.ResimYolu))
+                ResmiGoster(soru.ResimYolu);
+            else
+            {
+                g.Clear(Color.White);
+                pictureBox1.Invalidate();
+            }
+
+            // ⛔ eski timerları temizle (çok önemli)
+            sesGecikmeTimer.Stop();
+            timer2.Stop();
+
+            // 🔊 SES GECİKMELİ BAŞLASIN
+            if (!string.IsNullOrEmpty(soru.SesYolu))
+            {
+                gecikmeliSesYolu = soru.SesYolu;
+                geriSayim = 3;
+
+                lblsoru.Text = "⏳ Hazırlanıyor: 3";
+                timer2.Start();
+            }
+            else
+            {
+                lblsoru.Text = "Soru " + (aktifIndex + 1);
+            }
+
+        }
         void SoruGuncelle()
         {
             lblsoru.Text = "Soru " + (aktifIndex + 1);
@@ -555,12 +635,30 @@ namespace TESTTAKIP
 
         private void btngeri_Click(object sender, EventArgs e)
         {
-            if (resimYollari.Count == 0)
+            if (sorular.Count == 0)
                 return;
+
+            Kaydet(); // 🔥
+
+            aktifIndex--;
+
+            if (aktifIndex < 0)
+                aktifIndex = sorular.Count - 1;
+
+            SoruyuGoster(sorular[aktifIndex]);
+            elapsedTime = 0;
+            progressBar1.Value = 0;
+        }
+        void Kaydet()
+        {
+            var soru = sorular[aktifIndex];
+
+            if (string.IsNullOrEmpty(soru.ResimYolu))
+                return; // sadece ses sorusuysa kaydetme
 
             try
             {
-                string dosyaAdi = Path.GetFileNameWithoutExtension(resimYollari[aktifIndex]) + ".png";
+                string dosyaAdi = Path.GetFileNameWithoutExtension(soru.ResimYolu) + ".png";
                 string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
 
                 using (Bitmap kaydedilecek = new Bitmap(canvas))
@@ -570,31 +668,14 @@ namespace TESTTAKIP
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Resim kaydedilemedi: " + ex.Message);
+                MessageBox.Show("Kaydetme hatası: " + ex.Message);
             }
-
-            aktifIndex--;
-
-            if (aktifIndex < 0)
-                aktifIndex = resimYollari.Count - 1;
-
-            ResmiGoster(resimYollari[aktifIndex]);
         }
-
         private void frmtest_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (resimYollari.Count > 0)
+            if (sorular.Count > 0)
             {
-                string dosyaAdi = Path.GetFileNameWithoutExtension(resimYollari[aktifIndex]) + ".png";
-                string kayitYolu = Path.Combine(kayitKlasoru, dosyaAdi);
-
-                using (Bitmap kaydedilecek = new Bitmap(canvas))
-                {
-                    if (File.Exists(kayitYolu))
-                        
-
-                    kaydedilecek.Save(kayitYolu, System.Drawing.Imaging.ImageFormat.Png);
-                }
+                Kaydet();
             }
         }
 
@@ -647,6 +728,48 @@ namespace TESTTAKIP
         private void chkgizle_CheckedChanged(object sender, EventArgs e)
         {
             splaltana.Panel2Collapsed = chkgizle.Checked;
+        }
+
+        private void lblsoru_Click(object sender, EventArgs e)
+        {
+            if (sorular.Count == 0)
+                return;
+
+            var soru = sorular[aktifIndex];
+
+            if (!string.IsNullOrEmpty(soru.SesYolu))
+            {
+                gecikmeliSesYolu = soru.SesYolu;
+                geriSayim = 3;
+
+                lblsoru.Text = "⏳ "+geriSayim;
+
+                timer2.Start();
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            geriSayim--;
+
+            if (geriSayim > 0)
+            {
+                lblsoru.Text = "⏳  " + geriSayim;
+                return;
+            }
+
+            timer2.Stop();
+
+            lblsoru.Text = "🔊 Soru " + (aktifIndex + 1); 
+
+            if (!string.IsNullOrEmpty(gecikmeliSesYolu))
+            {
+                if (player != null)
+                    player.Stop();
+
+                player = new System.Media.SoundPlayer(gecikmeliSesYolu);
+                player.Play();
+            }
         }
     }
     

@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\Win10\\Desktop\\TURKCE\\TESTTAKIP\\TESTTAKIP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B0849945-6039-475C-9D19-C774DF8D1202}|TESTTAKIP.csproj|C:\\Users\\Win10\\Desktop\\TURKCE\\TESTTAKIP\\TESTTAKIP\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B0849945-6039-475C-9D19-C774DF8D1202}|TESTTAKIP.csproj|c:\\users\\win10\\desktop\\turkce\\testtakip\\testtakip\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0849945-6039-475C-9D19-C774DF8D1202}|TESTTAKIP.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0849945-6039-475C-9D19-C774DF8D1202}|TESTTAKIP.csproj|c:\\users\\win10\\desktop\\turkce\\testtakip\\testtakip\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{B0849945-6039-475C-9D19-C774DF8D1202}|TESTTAKIP.csproj|C:\\Users\\Win10\\Desktop\\TURKCE\\TESTTAKIP\\TESTTAKIP\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B0849945-6039-475C-9D19-C774DF8D1202}|TESTTAKIP.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -28,7 +28,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Win10\\Desktop\\TURKCE\\TESTTAKIP\\TESTTAKIP\\Form1.cs*",
               "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AgIAABUAAAAAAAAAAIA6wCQAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAC0CAAAAAAAAAAASwEMCAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-26T16:00:18.093Z",
               "EditorCaption": ""
