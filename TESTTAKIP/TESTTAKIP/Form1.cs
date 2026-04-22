@@ -581,39 +581,61 @@ namespace TESTTAKIP
         }
         private void SoruyuGoster(Soru soru)
         {
-            // süreyi resetle
-            elapsedTime = 0;
-            kalanSureMs = saniye * 1000;
+            // 🎧 Dinleme sorusu mu?
+            bool dinlemeSorusu = !string.IsNullOrEmpty(soru.SesYolu);
 
-            progressBar1.Value = 0;
-            lblsure.Text = TimeSpan.FromMilliseconds(kalanSureMs).ToString(@"mm\:ss");
-            // 🖼 RESİM
+            // checkbox görünürlüğü
+            chkdinlemesoru.Visible = dinlemeSorusu;
+
+            // dinleme sorusunda varsayılan: resim gizli
+            if (dinlemeSorusu)
+                chkdinlemesoru.Checked = false;
+
+            // 🖼 RESİM KONTROLÜ (TEK NOKTA)
             if (!string.IsNullOrEmpty(soru.ResimYolu))
-                ResmiGoster(soru.ResimYolu);
+            {
+                if (!dinlemeSorusu || chkdinlemesoru.Checked)
+                {
+                    ResmiGoster(soru.ResimYolu);
+                }
+                else
+                {
+                    g.Clear(Color.White);
+                    pictureBox1.Invalidate();
+                }
+            }
             else
             {
                 g.Clear(Color.White);
                 pictureBox1.Invalidate();
             }
 
-            // ⛔ eski timerları temizle (çok önemli)
+            // ⏱ SÜRE RESET
+            elapsedTime = 0;
+            kalanSureMs = saniye * 1000;
+
+            progressBar1.Value = 0;
+            lblsure.Text = TimeSpan.FromMilliseconds(kalanSureMs).ToString(@"mm\:ss");
+
+            // ⛔ timer temizle
             sesGecikmeTimer.Stop();
             timer2.Stop();
 
-            // 🔊 SES GECİKMELİ BAŞLASIN
+            // 🔊 SES (gecikmeli)
             if (!string.IsNullOrEmpty(soru.SesYolu))
             {
                 gecikmeliSesYolu = soru.SesYolu;
                 geriSayim = 3;
 
-                lblsoru.Text = "⏳ Hazırlanıyor: 3";
+                lblsoru.Text = "⏳ " + geriSayim;
+
                 timer2.Start();
             }
             else
             {
                 lblsoru.Text = "Soru " + (aktifIndex + 1);
             }
-
+            chkdinlemesoru.Checked = false;
         }
         void SoruGuncelle()
         {
@@ -725,10 +747,7 @@ namespace TESTTAKIP
             }
         }
 
-        private void chkgizle_CheckedChanged(object sender, EventArgs e)
-        {
-            splaltana.Panel2Collapsed = chkgizle.Checked;
-        }
+       
 
         private void lblsoru_Click(object sender, EventArgs e)
         {
@@ -754,13 +773,13 @@ namespace TESTTAKIP
 
             if (geriSayim > 0)
             {
-                lblsoru.Text = "⏳  " + geriSayim;
+                lblsoru.Text = "⏳ " + geriSayim;
                 return;
             }
 
             timer2.Stop();
 
-            lblsoru.Text = "🔊 Soru " + (aktifIndex + 1); 
+            lblsoru.Text = "🔊 Soru " + (aktifIndex + 1);
 
             if (!string.IsNullOrEmpty(gecikmeliSesYolu))
             {
@@ -769,6 +788,36 @@ namespace TESTTAKIP
 
                 player = new System.Media.SoundPlayer(gecikmeliSesYolu);
                 player.Play();
+            }
+
+        }
+
+        private void chkgizle_CheckedChanged_1(object sender, EventArgs e)
+        {
+            splaltana.Panel2Collapsed = chkgizle.Checked;
+        }
+
+        private void chkdinlemesoru_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sorular.Count == 0) return;
+
+            var soru = sorular[aktifIndex];
+
+            // sadece dinleme sorusuysa çalış
+            if (string.IsNullOrEmpty(soru.SesYolu))
+                return;
+
+            if (!string.IsNullOrEmpty(soru.ResimYolu))
+            {
+                if (chkdinlemesoru.Checked)
+                {
+                    ResmiGoster(soru.ResimYolu);
+                }
+                else
+                {
+                    g.Clear(Color.White);
+                    pictureBox1.Invalidate();
+                }
             }
         }
     }

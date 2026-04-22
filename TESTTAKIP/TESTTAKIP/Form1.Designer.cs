@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splana = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -38,9 +38,7 @@
             this.splaltana = new System.Windows.Forms.SplitContainer();
             this.splaltanasol = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnileri = new System.Windows.Forms.Button();
-            this.btnbaslat = new System.Windows.Forms.Button();
+            this.chkdinlemesoru = new System.Windows.Forms.CheckBox();
             this.lblsoru = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btndurdur = new System.Windows.Forms.Button();
@@ -50,6 +48,9 @@
             this.btngeri = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.chkgizle = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnileri = new System.Windows.Forms.Button();
+            this.btnbaslat = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.splsagust = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -75,8 +76,8 @@
             this.splaltanasol.Panel2.SuspendLayout();
             this.splaltanasol.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splsagust)).BeginInit();
             this.splsagust.Panel1.SuspendLayout();
@@ -168,7 +169,7 @@
             // 
             this.splaltana.Panel2.Controls.Add(this.splsagust);
             this.splaltana.Size = new System.Drawing.Size(1303, 530);
-            this.splaltana.SplitterDistance = 1003;
+            this.splaltana.SplitterDistance = 1005;
             this.splaltana.SplitterWidth = 3;
             this.splaltana.TabIndex = 0;
             // 
@@ -188,80 +189,51 @@
             // splaltanasol.Panel2
             // 
             this.splaltanasol.Panel2.Controls.Add(this.pictureBox1);
-            this.splaltanasol.Size = new System.Drawing.Size(1003, 530);
+            this.splaltanasol.Size = new System.Drawing.Size(1005, 530);
             this.splaltanasol.SplitterDistance = 41;
             this.splaltanasol.SplitterWidth = 3;
             this.splaltanasol.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 8;
+            this.tableLayoutPanel2.ColumnCount = 9;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.69441F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.81123F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.494354F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.tableLayoutPanel2.Controls.Add(this.panel2, 6, 0);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel2.Controls.Add(this.chkdinlemesoru, 6, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblsoru, 5, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblsure, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.progressBar1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btngeri, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.button1, 3, 0);
-            this.tableLayoutPanel2.Controls.Add(this.chkgizle, 7, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chkgizle, 8, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel2, 7, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1003, 41);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1005, 41);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // panel2
+            // chkdinlemesoru
             // 
-            this.panel2.Controls.Add(this.btnileri);
-            this.panel2.Controls.Add(this.btnbaslat);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(897, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(64, 41);
-            this.panel2.TabIndex = 1;
-            // 
-            // btnileri
-            // 
-            this.btnileri.BackColor = System.Drawing.Color.Snow;
-            this.btnileri.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnileri.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnileri.Image = global::TESTTAKIP.Properties.Resources.icons8_stop_48px;
-            this.btnileri.Location = new System.Drawing.Point(0, 0);
-            this.btnileri.Name = "btnileri";
-            this.btnileri.Size = new System.Drawing.Size(64, 41);
-            this.btnileri.TabIndex = 4;
-            this.btnileri.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnileri.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnileri.UseVisualStyleBackColor = false;
-            this.btnileri.Visible = false;
-            this.btnileri.Click += new System.EventHandler(this.btnbitir_Click);
-            // 
-            // btnbaslat
-            // 
-            this.btnbaslat.BackColor = System.Drawing.Color.Snow;
-            this.btnbaslat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnbaslat.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnbaslat.Image = global::TESTTAKIP.Properties.Resources.icons8_start_48px;
-            this.btnbaslat.Location = new System.Drawing.Point(0, 0);
-            this.btnbaslat.Name = "btnbaslat";
-            this.btnbaslat.Size = new System.Drawing.Size(64, 41);
-            this.btnbaslat.TabIndex = 3;
-            this.btnbaslat.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnbaslat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnbaslat.UseVisualStyleBackColor = false;
-            this.btnbaslat.Click += new System.EventHandler(this.btnbaslat_Click);
+            this.chkdinlemesoru.AutoSize = true;
+            this.chkdinlemesoru.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkdinlemesoru.Location = new System.Drawing.Point(879, 3);
+            this.chkdinlemesoru.Name = "chkdinlemesoru";
+            this.chkdinlemesoru.Size = new System.Drawing.Size(35, 35);
+            this.chkdinlemesoru.TabIndex = 9;
+            this.chkdinlemesoru.UseVisualStyleBackColor = true;
+            this.chkdinlemesoru.CheckedChanged += new System.EventHandler(this.chkdinlemesoru_CheckedChanged);
             // 
             // lblsoru
             // 
@@ -271,7 +243,7 @@
             this.lblsoru.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblsoru.ForeColor = System.Drawing.Color.Yellow;
             this.lblsoru.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblsoru.Location = new System.Drawing.Point(757, 0);
+            this.lblsoru.Location = new System.Drawing.Point(736, 0);
             this.lblsoru.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblsoru.Name = "lblsoru";
             this.lblsoru.Size = new System.Drawing.Size(138, 41);
@@ -285,10 +257,10 @@
             this.panel1.Controls.Add(this.btndurdur);
             this.panel1.Controls.Add(this.btndevam);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(575, 0);
+            this.panel1.Location = new System.Drawing.Point(556, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(60, 41);
+            this.panel1.Size = new System.Drawing.Size(58, 41);
             this.panel1.TabIndex = 5;
             // 
             // btndurdur
@@ -299,7 +271,7 @@
             this.btndurdur.Image = global::TESTTAKIP.Properties.Resources.durdur;
             this.btndurdur.Location = new System.Drawing.Point(0, 0);
             this.btndurdur.Name = "btndurdur";
-            this.btndurdur.Size = new System.Drawing.Size(60, 41);
+            this.btndurdur.Size = new System.Drawing.Size(58, 41);
             this.btndurdur.TabIndex = 2;
             this.btndurdur.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btndurdur.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -315,7 +287,7 @@
             this.btndevam.Image = global::TESTTAKIP.Properties.Resources.devamet;
             this.btndevam.Location = new System.Drawing.Point(0, 0);
             this.btndevam.Name = "btndevam";
-            this.btndevam.Size = new System.Drawing.Size(60, 41);
+            this.btndevam.Size = new System.Drawing.Size(58, 41);
             this.btndevam.TabIndex = 1;
             this.btndevam.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btndevam.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -330,10 +302,10 @@
             this.lblsure.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblsure.ForeColor = System.Drawing.Color.Yellow;
             this.lblsure.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblsure.Location = new System.Drawing.Point(426, 0);
+            this.lblsure.Location = new System.Drawing.Point(412, 0);
             this.lblsure.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblsure.Name = "lblsure";
-            this.lblsure.Size = new System.Drawing.Size(147, 41);
+            this.lblsure.Size = new System.Drawing.Size(142, 41);
             this.lblsure.TabIndex = 1;
             this.lblsure.Text = "SÜRE";
             this.lblsure.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -344,7 +316,7 @@
             this.progressBar1.Location = new System.Drawing.Point(2, 3);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(420, 35);
+            this.progressBar1.Size = new System.Drawing.Size(406, 35);
             this.progressBar1.TabIndex = 2;
             // 
             // btngeri
@@ -353,7 +325,7 @@
             this.btngeri.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btngeri.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btngeri.Image = global::TESTTAKIP.Properties.Resources.icons8_back_64px;
-            this.btngeri.Location = new System.Drawing.Point(698, 3);
+            this.btngeri.Location = new System.Drawing.Point(677, 3);
             this.btngeri.Name = "btngeri";
             this.btngeri.Size = new System.Drawing.Size(54, 35);
             this.btngeri.TabIndex = 4;
@@ -368,7 +340,7 @@
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button1.Image = global::TESTTAKIP.Properties.Resources.icons8_forward_50px;
-            this.button1.Location = new System.Drawing.Point(638, 3);
+            this.button1.Location = new System.Drawing.Point(617, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(54, 35);
             this.button1.TabIndex = 3;
@@ -381,12 +353,54 @@
             // 
             this.chkgizle.AutoSize = true;
             this.chkgizle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkgizle.Location = new System.Drawing.Point(964, 3);
+            this.chkgizle.Location = new System.Drawing.Point(978, 3);
             this.chkgizle.Name = "chkgizle";
-            this.chkgizle.Size = new System.Drawing.Size(36, 35);
-            this.chkgizle.TabIndex = 7;
+            this.chkgizle.Size = new System.Drawing.Size(24, 35);
+            this.chkgizle.TabIndex = 8;
             this.chkgizle.UseVisualStyleBackColor = true;
-            this.chkgizle.CheckedChanged += new System.EventHandler(this.chkgizle_CheckedChanged);
+            this.chkgizle.CheckedChanged += new System.EventHandler(this.chkgizle_CheckedChanged_1);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnileri);
+            this.panel2.Controls.Add(this.btnbaslat);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(917, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(58, 41);
+            this.panel2.TabIndex = 1;
+            // 
+            // btnileri
+            // 
+            this.btnileri.BackColor = System.Drawing.Color.Snow;
+            this.btnileri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnileri.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnileri.Image = global::TESTTAKIP.Properties.Resources.icons8_stop_48px;
+            this.btnileri.Location = new System.Drawing.Point(0, 0);
+            this.btnileri.Name = "btnileri";
+            this.btnileri.Size = new System.Drawing.Size(58, 41);
+            this.btnileri.TabIndex = 4;
+            this.btnileri.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnileri.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnileri.UseVisualStyleBackColor = false;
+            this.btnileri.Visible = false;
+            this.btnileri.Click += new System.EventHandler(this.btnbitir_Click);
+            // 
+            // btnbaslat
+            // 
+            this.btnbaslat.BackColor = System.Drawing.Color.Snow;
+            this.btnbaslat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnbaslat.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnbaslat.Image = global::TESTTAKIP.Properties.Resources.icons8_start_48px;
+            this.btnbaslat.Location = new System.Drawing.Point(0, 0);
+            this.btnbaslat.Name = "btnbaslat";
+            this.btnbaslat.Size = new System.Drawing.Size(58, 41);
+            this.btnbaslat.TabIndex = 3;
+            this.btnbaslat.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnbaslat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnbaslat.UseVisualStyleBackColor = false;
+            this.btnbaslat.Click += new System.EventHandler(this.btnbaslat_Click);
             // 
             // pictureBox1
             // 
@@ -395,7 +409,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1003, 486);
+            this.pictureBox1.Size = new System.Drawing.Size(1005, 486);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -419,36 +433,36 @@
             // splsagust.Panel2
             // 
             this.splsagust.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splsagust.Size = new System.Drawing.Size(297, 530);
+            this.splsagust.Size = new System.Drawing.Size(295, 530);
             this.splsagust.SplitterDistance = 438;
             this.splsagust.TabIndex = 0;
             // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightCoral;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightCoral;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(297, 438);
+            this.dataGridView1.Size = new System.Drawing.Size(295, 438);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
@@ -470,7 +484,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(297, 88);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(295, 88);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // btnUndo
@@ -479,9 +493,9 @@
             this.btnUndo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnUndo.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnUndo.Image = global::TESTTAKIP.Properties.Resources.icons8_undo_40px;
-            this.btnUndo.Location = new System.Drawing.Point(225, 3);
+            this.btnUndo.Location = new System.Drawing.Point(222, 3);
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(69, 82);
+            this.btnUndo.Size = new System.Drawing.Size(70, 82);
             this.btnUndo.TabIndex = 6;
             this.btnUndo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnUndo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -494,9 +508,9 @@
             this.btnYazi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnYazi.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnYazi.Image = global::TESTTAKIP.Properties.Resources.icons8_typewriter_with_paper_48px;
-            this.btnYazi.Location = new System.Drawing.Point(151, 3);
+            this.btnYazi.Location = new System.Drawing.Point(149, 3);
             this.btnYazi.Name = "btnYazi";
-            this.btnYazi.Size = new System.Drawing.Size(68, 82);
+            this.btnYazi.Size = new System.Drawing.Size(67, 82);
             this.btnYazi.TabIndex = 5;
             this.btnYazi.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnYazi.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -509,9 +523,9 @@
             this.btnsilgi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnsilgi.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnsilgi.Image = global::TESTTAKIP.Properties.Resources.icons8_eraser_48px_1;
-            this.btnsilgi.Location = new System.Drawing.Point(77, 3);
+            this.btnsilgi.Location = new System.Drawing.Point(76, 3);
             this.btnsilgi.Name = "btnsilgi";
-            this.btnsilgi.Size = new System.Drawing.Size(68, 82);
+            this.btnsilgi.Size = new System.Drawing.Size(67, 82);
             this.btnsilgi.TabIndex = 1;
             this.btnsilgi.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnsilgi.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -526,7 +540,7 @@
             this.btnkalem.Image = global::TESTTAKIP.Properties.Resources.icons8_pencil_48px;
             this.btnkalem.Location = new System.Drawing.Point(3, 3);
             this.btnkalem.Name = "btnkalem";
-            this.btnkalem.Size = new System.Drawing.Size(68, 82);
+            this.btnkalem.Size = new System.Drawing.Size(67, 82);
             this.btnkalem.TabIndex = 0;
             this.btnkalem.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnkalem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -574,8 +588,8 @@
             this.splaltanasol.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splsagust.Panel1.ResumeLayout(false);
             this.splsagust.Panel2.ResumeLayout(false);
@@ -616,8 +630,9 @@
         private System.Windows.Forms.Button btndevam;
         private System.Windows.Forms.Button btndurdur;
         private System.Windows.Forms.Button btngeri;
-        private System.Windows.Forms.CheckBox chkgizle;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.CheckBox chkgizle;
+        private System.Windows.Forms.CheckBox chkdinlemesoru;
     }
 }
 
